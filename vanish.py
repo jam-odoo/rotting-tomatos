@@ -22,7 +22,6 @@ env.cr.execute("UPDATE purchase_order SET state='cancel'")
 env["purchase.order.line"].sudo().search([]).unlink()
 env["purchase.order"].sudo().search([]).unlink()
 
-
 env.cr.execute("UPDATE account_move SET state='draft'")
 env.cr.execute("UPDATE account_invoice SET state='draft', move_name=''")
 env.cr.execute("UPDATE account_payment SET state='draft'")
@@ -37,7 +36,8 @@ env["account.move.line"].sudo().search([]).unlink()
 env["account.move"].sudo().search([]).unlink()
 env["account.payment"].sudo().search([]).unlink()
 
-env["workflow.instance"].sudo().search([("res_type", "=", "account.invoice")]).unlink()
-
 env.cr.execute("UPDATE mrp_production SET state='draft'")
 env["mrp.production"].sudo().search([]).unlink()
+env["mrp.production.workcenter.line"].sudo().search([]).unlink()
+
+env["workflow.instance"].sudo().search([("res_type", "in", ("account.invoice", "mrp.production.workcenter.line", "mrp.production") )]).unlink()
