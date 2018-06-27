@@ -1,3 +1,5 @@
+#TRY THIS YOUR OWN RISK, NO GURANTEE OF WORKING :P
+# I hope you know what you are doing
 def get_chunks(l, n):
     for i in range(0, len(l), n):
         yield l[i:i + n]
